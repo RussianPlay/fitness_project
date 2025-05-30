@@ -12,8 +12,13 @@
                 {% for item in form %}
                 <div class="auth-field auth-input-field">
                     {{item}}
+                    
                 </div>
-
+                {% if item.errors %}
+                <div class="text-danger">
+                    {{ item.errors }}
+                </div>
+                {% endif %}
                 {% endfor %}
                 <div class="auth-field auth-button-field">
                     <button type="submit">Зарегистрироваться</button>

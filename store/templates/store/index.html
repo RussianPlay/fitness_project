@@ -14,7 +14,7 @@
     <div class="custom-carousel-inner">
         {% for product in recommended_data %}
         <div class="custom-carousel-item">
-            <a href="/product/{{ product.id }}" class="card-link">
+            <a href="/store/product/{{ product.id }}" class="card-link">
                 <div class="about-card">
                     <div class="img-el">
                         <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
@@ -44,7 +44,7 @@
     <div class="custom-carousel-inner">
         {% for el, ru in en_rus_catalog.items %}
             <div class="custom-carousel-item">
-                <a href="/page/{{ page }}/catalog/{{ el }}/" title="{{ ru }}">
+                <a href="/store/page/{{ page }}/catalog/{{ el }}/" title="{{ ru }}">
                     <img class="d-block carousel-img" alt="{{ ru }}"
                          src="{% static 'img/sorting_catalog/' %}{{ el }}.jpg">
                     <span class="carousel_text">{{ ru }}</span>
@@ -66,7 +66,7 @@
 <!-- Карточки товаров -->
 <div class="products">
     {% for product in product_data %}
-       <a href="/product/{{ product.id }}" class="card-link">
+       <a href="/store/product/{{ product.id }}" class="card-link">
         <div class="about-card">
             <div class="img-el">
                 <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image"> 
@@ -74,7 +74,7 @@
             <div class="card-content">
                 <div class="card-title">{{ product.name }}</div>
                 <div class="card-rating">★★★★☆</div>
-                <button class="add-to-cart-btn">В корзину</button>
+                <button class="add-to-cart-btn" data-product-id="{{ product.id }}" data-page="{{ page }}">В корзину</button>
             </div>
         </div>
        </a>
@@ -83,17 +83,17 @@
 
 <nav class="pagination">
     {% if sort_command is none %}
-        <a class="pagination-btn" href="/page/1"><</a>
+        <a class="pagination-btn" href="/store/page/1"><</a>
         {% for p in prange %}
-            <a class="pagination-btn" href="/page/{{ p }}">{{ p }}</a>
+            <a class="pagination-btn" href="/store/page/{{ p }}">{{ p }}</a>
         {% endfor %}
-            <a class="pagination-btn" href="/page/{{ mx_page }}">></a>
+            <a class="pagination-btn" href="/store/page/{{ mx_page }}">></a>
     {% else %}
-            <a class="pagination-btn" href="/page/1/catalog/{{ sort_command }}"><</a>
+            <a class="pagination-btn" href="/store/page/1/catalog/{{ sort_command }}"><</a>
             {% for p in prange %}
-                <a class="pagination-btn" href="/page/{{ p }}/catalog/{{ sort_command }}">{{ p }}</a>
+                <a class="pagination-btn" href="/store/page/{{ p }}/catalog/{{ sort_command }}">{{ p }}</a>
             {% endfor %}
-                <a class="pagination-btn" href="/page/{{ mx_page }}/catalog/{{ sort_command }}">></a>
+                <a class="pagination-btn" href="/store/page/{{ mx_page }}/catalog/{{ sort_command }}">></a>
     {% endif %}
 </nav>
 
@@ -103,6 +103,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const add_btn = document.querySelector('.add-to-cart-btn');
+
+        if (add_btn) {
+          add_btn.addEventListener('click', function () {
+            const productId = add_btn.getAttribute('data-product-id');
+            const page = add_btn.getAttribute('data-page');
+            window.location.href = `/store/cart/add/page/${page}/product/${productId}/`;
+          });
+        }
+
         const img = document.querySelector('.full-width-image img');
         if (img) {
             console.log('Изображение найдено:', img.src);

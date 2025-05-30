@@ -7,7 +7,7 @@
     <div class="column_cart">
         {% for product in cart_data %}
         <div class="card_cart">
-            <a href="/product/{{ product.id }}" class="card-link">
+            <a href="/store/product/{{ product.id }}" class="card-link">
                 <div class="card-inner">
                     <div class="img-el_cart">
                         <img src="{{ product.image }}" alt="{{ product.name }}">
@@ -19,9 +19,25 @@
                     </div>
                 </div>
             </a>
-            <button class="delete-btn">Удалить</button>
+            <button class="delete-btn" data-product-id="{{ product.id }}">Удалить</button>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const delete_btn = document.querySelector('.delete-btn');
+
+        if (delete_btn) {
+            delete_btn.addEventListener('click', function () {
+            const productId = delete_btn.getAttribute('data-product-id');
+
+            window.location.href = `/cart/remove/product/${productId}/`;
+          });
+        }
+    });
+</script>
 {% endblock %}

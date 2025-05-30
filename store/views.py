@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Products, Category
 from django.http import HttpResponse
+from django.views import  View
+from .cart import Cart
 # Create your views here.
 PRODUCT_CARDS_NUMBER_PER_PAGE = 20
 
 def index(request, page=1):
     if request.method == 'GET':
         recommended_data = Products.get_recommended_products()
-        print(recommended_data)
         product_data = Products.get_products_page(page)
         sz = Products.get_size()
         mx_page = sz // PRODUCT_CARDS_NUMBER_PER_PAGE + (1 if sz % PRODUCT_CARDS_NUMBER_PER_PAGE else 0)
@@ -57,6 +58,26 @@ def index_with_order(request, page = 1, sort_command = ''):
 def product_tab(request, product_id):
     prod = Products.get_products_by_id([product_id])[0]
     return render(request, 'store/product_tab.html', context={'product_item':prod})
+
+
+def cart_add(request, page, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Products, id=product_id)
+    cart.add(product)
+    return redirect('move_to_page', page=page)
+
+
+def cart_remove(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Products, id=product_id)
+    cart.remove(product)
+    return redirect('cart_detail')
+
+
+def cart_detail(request):
+    cart = Cart(request)
+    return render(request, 'store/cart.html', {'cart': cart})
+
 
 def cart(request):
     cart_data = Products.get_products_page(page_number=1)

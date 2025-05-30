@@ -7,13 +7,41 @@
             <div class="auth-header">Вход</div>
             <form method="POST" class="auth-form-element" action="#">
                 {% csrf_token %}
+
+
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+
+
                 <div class="auth-field auth-input-field">
+                    {{form.username}}
+                </div>
+                <div class="auth-field auth-input-field">
+                    {{form.password}}
+                    <i class='bx bx-hide auth-eye-icon'></i>
+                </div>
+
+            
+
+
+                <!-- <div class="auth-field auth-input-field">
                     <input type="text" name="username" id="id_username" placeholder="Юзер" class="auth-input" required>
                 </div>
                 <div class="auth-field auth-input-field">
                     <input type="password" name="password" id="id_password" placeholder="Пароль" class="auth-password required">
                     <i class='bx bx-hide auth-eye-icon'></i>
-                </div>
+                </div> -->
+
+
+
                 <div class="auth-form-link">
                     <a href="#" class="auth-forgot-pass">Забыли пароль?</a>
                 </div>
