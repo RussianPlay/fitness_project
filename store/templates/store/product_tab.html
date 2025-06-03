@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="product-container">
+    <div class="product-details">
+        <div class="image-container">
+            <img src="{{ product_item.image }}" alt="Product Poster" class="product-poster">
+        </div>
+        <div class="product-text">
+            <div class="product-rating-row">
+                <h1 class="product-title">{{ product_item.name }}</h1>
+                <span class="product-rating">{{ product_item.rating }}</span>
+            </div>
+
+            <div class="product-info">
+                <h2 class="section-title">О Товаре</h2>
+                <p><span class="label">Производитель: </span>{{ product_item.company_name }}</p>
+                <p><span class="label">Категория: </span>{{ product_item.category.get_translated_name }}</p>
+                <p><span class="label">Цена: </span>{{ product_item.price }} р</p>
+            </div>
+        </div>
+    </div>
+    <div class="product-description">
+        <p>{{ product_item.description }}</p>
+    </div>
+</div>
+{% endblock %}

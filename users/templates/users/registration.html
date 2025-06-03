@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="auth-container">
+    <div class="auth-form">
+        <div class="auth-form-content">
+            <div class="auth-header">Регистрация</div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                {% for item in form %}
+                <div class="auth-field auth-input-field">
+                    {{item}}
+                    
+                </div>
+                {% if item.errors %}
+                <div class="text-danger">
+                    {{ item.errors }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="auth-field auth-button-field">
+                    <button type="submit">Зарегистрироваться</button>
+                </div>
+            </form>
+
+            
+
+
+
+
+            <!-- <form class="auth-form-element" action="#">
+                <div class="auth-field auth-input-field">
+                    <input type="email" placeholder="Почта" class="auth-input" required>
+                </div>
+                <div class="auth-field auth-input-field">
+                    <input type="text" placeholder="Имя" class="auth-input" required>
+                </div>
+                <div class="auth-field auth-input-field">
+                    <input type="password" placeholder="Пароль" class="auth-password" required>
+                </div>
+                <div class="auth-field auth-input-field">
+                    <input type="password" placeholder="Повторите пароль" class="auth-password" required>
+                    <i class='bx bx-hide auth-eye-icon'></i>
+                </div>
+                <div class="auth-field auth-button-field">
+                    <button type="submit">Зарегистрироваться</button>
+                </div>
+            </form> -->
+            <div class="auth-form-link">
+                <span>Уже есть аккаунт? <a href="/login/" class="auth-link auth-login-link">Вход</a></span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
