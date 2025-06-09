@@ -635,6 +635,63 @@ nav .pagination .pagination-btn.active {
     color: #1551e5;
     font-size: 18px;
 }
+
+.cart-summary {
+    width: 100%;
+    background-color: #E6E6E6; /* Slightly darker gray than #F2F2F2 */
+    padding: 20px 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    min-height: 120px; /* For larger text */
+    margin-bottom: 20px; /* Bottom spacing */
+}
+
+.cart-summary {
+    width: 100%;
+    background-color: #E6E6E6; /* Slightly darker gray than #F2F2F2 */
+    padding: 20px 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    min-height: 120px; /* For larger text */
+    margin-bottom: 20px; /* Bottom spacing */
+}
+
+.summary-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Pushes button to the right */
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.buy-button {
+    background-color: #1551E5; /* Blue button */
+    border: 2px solid #333 !important; /* Dark border */
+    color: white !important; /* White text */
+    cursor: pointer;
+    font-size: 18px; /* Larger font size */
+    padding: 12px 30px; /* Larger padding */
+    text-align: center;
+    text-decoration: none !important;
+    border-radius: 5px;
+    transition: all 0.3s;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    margin-right: 65px;
+    line-height: 1;
+    min-width: 180px; /* Wider button */
+    white-space: nowrap;
+}
+
+.buy-button:hover {
+    background-color: #1040b8 !important; /* Darker blue on hover */
+    transform: scale(1.03);
+}
 /*------------------*\
     login.html
 \*------------------*/

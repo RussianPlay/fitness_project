@@ -32,6 +32,12 @@
         {% endfor %}
     </div>
 </div>
+<div class="cart-summary">
+    <div class="summary-content">
+        <span class="sm-text sm-text--h3 sm-text--medium" href="">Итого:п <span id="total-price">{{ total_price }}</span></span>
+        <a href="/store/checkout/" class="buy-button">Купить</a>
+    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
