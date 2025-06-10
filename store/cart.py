@@ -38,7 +38,7 @@ class Cart:
             yield item
 
     def get_total_price(self):
-        return sum(float(item['price']) * item['quantity'] for item in self.cart.values())
+        return int(sum(float(item['price']) * item['quantity'] for item in self.cart.values()))
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
