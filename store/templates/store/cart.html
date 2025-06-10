@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<span class="sm-text sm-text--h3 sm-text--medium" href="">Ваша корзина</span>
+
+{% if cart.is_empty %}
+    <div class="text_is_empty">
+        <span class="sm-text sm-text--h3 sm-text--medium" href="">Пусто. Добавьте товары</span>
+    </div>
+{% else %}
+    <div class="products_cart">
+        <div class="column_cart">
+            {% for product in cart %}
+            <div class="card_cart">
+                <div class="card-controls-container">
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus-btn" data-product-id="{{ product.id }}">-</button>
+                        <span class="quantity-display">{{ product.quantity }}</span>
+                        <button class="quantity-btn plus-btn" data-product-id="{{ product.id }}">+</button>
+                    </div>
+                    <button class="delete-btn" data-product-id="{{ product.product.id }}">Удалить</button>
+                </div>
+                <a href="/store/product/{{ product.product.id }}" class="card-link">
+                    <div class="card-inner">
+                        <div class="img-el_cart">
+                            <img src="{{ product.product.image }}" alt="{{ product.product.name }}">
+                        </div>
+                        <div class="card-content_cart">
+                            <div class="card-name_cart">{{ product.product.name }}</div>
+                            <div class="card-type_cart">{{ product.product.category.get_translated_name }}</div>
+                            <div class="card-price_cart">{{ product.product.price }} Р</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="cart-summary">
+        <div class="summary-content">
+            <span class="sm-text sm-text--h3 sm-text--medium" href="">Итого:п <span id="total-price">{{ total_price }}</span></span>
+            <a href="/store/payment/" class="buy-button">Купить</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+                window.location.href = `/store/cart/remove/product/${productId}/`;
+            });
+        });
+        // Обработка кнопок "+" и "−"
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const action = this.classList.contains('plus-btn') ? 'plus' : 'minus';
+                console.log('Кнопка:', action, 'ID:', productId); // Для отладки
+                window.location.href = `/cart/update/product/${productId}/${action}/`;
+            });
+        });
+    });
+</script>
+{% endblock %}
